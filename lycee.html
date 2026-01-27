@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTEWAY • Calculateur Lycée</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/lycee.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="app-container header-content">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="header-title">
+                <h1>NOTEWAY <span class="version-badge">LYCÉE</span></h1>
+                <p>Calculateur de moyenne • Version Lycée</p>
+            </div>
+            <div style="width: 24px;"></div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <!-- ÉCRAN 1 : CHOIX CLASSE -->
+        <section class="selection-screen" id="selectionClasse">
+            <h2 class="selection-title">CHOISIS TA CLASSE</h2>
+            <p class="selection-subtitle">Sélectionne ton niveau pour commencer</p>
+            
+            <div class="class-grid">
+                <div class="class-card" data-classe="seconde">
+                    <div class="class-number">2nd</div>
+                    <div class="class-name">Seconde</div>
+                    <div class="class-desc">Début du lycée</div>
+                </div>
+                
+                <div class="class-card" data-classe="premiere">
+                    <div class="class-number">1ère</div>
+                    <div class="class-name">Première</div>
+                    <div class="class-desc">Ça devient sérieux !</div>
+                </div>
+                
+                <div class="class-card" data-classe="terminale">
+                    <div class="class-number">Tle</div>
+                    <div class="class-name">Terminale</div>
+                    <div class="class-desc">Dernière ligne droite</div>
+                </div>
+            </div>
+            
+            <p class="selection-subtitle">
+                <i class="fas fa-info-circle"></i> Coefficients spécifiques à chaque série
+            </p>
+        </section>
+
+        <!-- ÉCRAN 2 : CHOIX SÉRIE -->
+        <section class="selection-screen" id="selectionSerie" style="display: none;">
+            <h2 class="selection-title" id="titreClasse">CHOISIS TA SÉRIE</h2>
+            <p class="selection-subtitle">Sélectionne ta série pour <span id="classeSelectionnee">--</span></p>
+            
+            <div class="serie-grid" id="serieGrid">
+                <!-- Rempli dynamiquement par JavaScript -->
+            </div>
+            
+            <button class="change-class-btn" id="backToClasse">
+                <i class="fas fa-arrow-left"></i> Retour au choix de classe
+            </button>
+        </section>
+
+        <!-- ÉCRAN 3 : TABLEAU DE NOTES -->
+        <section class="table-screen" id="tableScreen" style="display: none;">
+            <!-- BARRE D'INFO CLASSE & SÉRIE -->
+            <div class="class-info-bar">
+                <div class="class-display">
+                    <div class="current-class" id="currentClassSerie">--</div>
+                    <div class="class-coef">
+                        <i class="fas fa-calculator"></i> <span id="totalCoeff">--</span> coefficients totaux
+                    </div>
+                </div>
+                <button class="change-class-btn" id="changeSerieBtn">
+                    <i class="fas fa-exchange-alt"></i> Changer de série
+                </button>
+            </div>
+
+            <!-- TABLEAU COMPLET -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h2><i class="fas fa-table"></i> BULLETIN DE NOTES - <span id="tableTitle">--</span></h2>
+                    <p class="table-subtitle">Scroll horizontal pour voir toutes les colonnes</p>
+                </div>
+                
+                <div class="scroll-hint" id="scrollHint">
+                    <i class="fas fa-arrows-left-right"></i> Défile pour voir toutes les colonnes
+                </div>
+                
+                <table class="bulletin-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Matières</th>
+                            <th scope="col" colspan="4">Notes<br><small>Divers interros et devoirs /20</small></th>
+                            <th scope="col">M.Cla<br>/20</th>
+                            <th scope="col">Compo<br>/20</th>
+                            <th scope="col">Moy.<br>/20</th>
+                            <th scope="col">Coef</th>
+                            <th scope="col">Notes<br>Défini</th>
+                            <th scope="col">Observation</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="tableBody">
+                        <!-- Généré par JavaScript -->
+                    </tbody>
+                    
+                    <!-- LIGNE TOTALE -->
+                    <tr class="total-row">
+                        <td class="total-label">MOYENNE GÉNÉRALE=</td>
+                        <td colspan="9" class="total-value" id="moyenneGenerale">--.--</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- CONTENEUR OPTIONS (uniquement pour A4) -->
+            <div class="options-container" id="optionsContainer">
+                <!-- Rempli dynamiquement par JavaScript -->
+            </div>
+
+            <!-- ZONE DE CALCUL RAPIDE -->
+            <div class="quick-calc-section">
+                <div class="calc-buttons">
+                    <button class="calc-btn btn-calc" id="btnCalculer">
+                        <i class="fas fa-bolt"></i>
+                        CALCULER LA MOYENNE
+                    </button>
+                    <button class="calc-btn btn-reset" id="btnReset">
+                        <i class="fas fa-eraser"></i>
+                        TOUT EFFACER
+                    </button>
+                </div>
+            </div>
+
+            <!-- APPRÉCIATION -->
+            <div class="appreciation-card">
+                <div class="appreciation-header">
+                    <i class="fas fa-comment-alt"></i>
+                    <h3>RÉSULTAT</h3>
+                </div>
+                <div class="appreciation-text" id="appreciationText">
+                    Remplis tes notes et clique sur "Calculer la moyenne"
+                </div>
+                <div class="appreciation-grade" id="finalGrade">--.--</div>
+            </div>
+
+
+        </section>
+    </main>
+
+    <!-- MODAL SAUVEGARDE -->
+    <div class="modal-overlay" id="saveModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-bookmark"></i>
+                <h3>Sauvegarder ton bulletin</h3>
+            </div>
+            
+            <div class="trimestre-selection">
+                <p><strong>Sélectionne le trimestre :</strong></p>
+                <div class="trimestre-options">
+                    <div class="trim-option selected" data-trim="1">1er Trim.</div>
+                    <div class="trim-option" data-trim="2">2ème Trim.</div>
+                    <div class="trim-option" data-trim="3">3ème Trim.</div>
+                </div>
+            </div>
+            
+            <div class="save-input-container">
+                <p><strong>Donne un nom à ce bulletin :</strong></p>
+                <input type="text" class="save-input" id="saveName" 
+                       placeholder="Ex: Mes notes de novembre" maxlength="30">
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn btn-cancel" id="btnCancelSave">
+                    Annuler
+                </button>
+                <button class="modal-btn btn-confirm" id="btnConfirmSave">
+                    Sauvegarder
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="lycee-series.js"></script>
+    <script src="lycee-main.js"></script>
+    <script src="menu.js"></script>
+</body>
+</html>
