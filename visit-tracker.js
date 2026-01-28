@@ -153,13 +153,13 @@
             counterEl.id = 'visitCounter';
             counterEl.style.cssText = `
                 position: fixed;
-                bottom: 15px;
-                right: 15px;
+                bottom: 10px;
+                right: 10px;
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 color: white;
                 padding: 10px 18px;
                 border-radius: 20px;
-                font-size: 13px;
+                font-size: 8px;
                 font-weight: 600;
                 z-index: 9997;
                 box-shadow: 0 5px 20px rgba(0,0,0,0.3);
